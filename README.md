@@ -69,7 +69,7 @@ The API runs on `http://localhost:3000`.
 
 - [x] Project setup: NestJS, Prisma, Neon
 - [x] User and Link schema with migrations
-- [ ] Config with environment validation
+- [x] Config with environment validation
 - [ ] Prisma service and global request validation
 - [ ] Local PostgreSQL with Docker Compose
 - [ ] Auth: register, login, JWT
