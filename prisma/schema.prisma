@@ -12,4 +12,14 @@ model User {
   email        String   @unique
   passwordHash String
   createdAt    DateTime @default(now())
+  links        Link[]
+}
+
+model Link {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  url       String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }
