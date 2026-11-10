@@ -71,7 +71,7 @@ The API runs on `http://localhost:3000`.
 - [x] User and Link schema with migrations
 - [x] Config with environment validation
 - [x] Prisma service and global request validation
-- [ ] Local PostgreSQL with Docker Compose
+- [x] Local PostgreSQL with Docker Compose
 - [ ] Auth: register, login, JWT
 - [ ] Links: create (random or custom slug), list, update, delete, owner-only access
 - [ ] Redirect: `GET /:slug` with 302, expired and inactive links rejected
