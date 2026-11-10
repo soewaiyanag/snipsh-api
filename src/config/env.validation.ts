@@ -1,8 +1,10 @@
 import { z } from 'zod';
 
+const MAX_PORT = 65535;
+
 export const envSchema = z.object({
   DATABASE_URL: z.url(),
-  PORT: z.coerce.number().int().min(0).max(65535).default(3000),
+  PORT: z.coerce.number().int().min(0).max(MAX_PORT).default(3000),
 });
 
 export type Env = z.infer<typeof envSchema>;
