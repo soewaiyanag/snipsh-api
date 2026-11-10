@@ -31,8 +31,8 @@ User 1 ──── * Link
 Requirements: Node 22+, Yarn, a PostgreSQL database.
 
 ```bash
-git clone https://github.com/soewaiyanag/snipsh.git
-cd snipsh
+git clone https://github.com/soewaiyanag/snipsh-api.git
+cd snipsh-api
 yarn install
 ```
 

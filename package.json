@@ -1,5 +1,5 @@
 {
-  "name": "snipsh",
+  "name": "snipsh-api",
   "version": "0.0.1",
   "description": "SnipShort: URL shortener API built with NestJS, Prisma and PostgreSQL",
   "author": "Soe Wai Yan Aung",
