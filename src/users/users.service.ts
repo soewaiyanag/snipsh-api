@@ -10,6 +10,9 @@ export class UsersService {
   }
 
   create(email: string, passwordHash: string) {
-    return this.prisma.user.create({ data: { email, passwordHash } });
+    return this.prisma.user.create({
+      data: { email, passwordHash },
+      omit: { passwordHash: true },
+    });
   }
 }
