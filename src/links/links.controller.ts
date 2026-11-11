@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { CurrentUser } from '@/auth/decorators/current-user.decorator.js';
 import type { JwtPayload } from '@/auth/jwt-auth.guard.js';
 import { LinksService } from './links.service.js';
@@ -27,7 +36,8 @@ export class LinksController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.linksService.remove(id);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(@Param('id') id: string, @CurrentUser() user: JwtPayload) {
+    return this.linksService.remove(id, user.sub);
   }
 }

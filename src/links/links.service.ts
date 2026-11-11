@@ -79,7 +79,8 @@ export class LinksService {
     return link;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} link`;
+  async remove(id: string, userId: string) {
+    await this.findOne(id, userId);
+    await this.prisma.link.delete({ where: { id } });
   }
 }
