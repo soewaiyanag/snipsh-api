@@ -26,8 +26,8 @@ export class LinksController {
   }
 
   @Get()
-  findAll() {
-    return this.linksService.findAll();
+  findAll(@CurrentUser() user: JwtPayload) {
+    return this.linksService.findAll(user.sub);
   }
 
   @Get(':id')

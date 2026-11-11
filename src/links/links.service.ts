@@ -61,8 +61,11 @@ export class LinksService {
     }
   }
 
-  findAll() {
-    return this.prisma.link.findMany();
+  findAll(userId: string) {
+    return this.prisma.link.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+    });
   }
 
   findOne(id: string) {
