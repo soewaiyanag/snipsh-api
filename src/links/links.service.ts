@@ -7,7 +7,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto.js';
-import { UpdateLinkDto } from './dto/update-link.dto.js';
 import { Plan, Prisma } from '@/generated/prisma/client.js';
 import { PrismaService } from '@/prisma/prisma.service.js';
 import { UsersService } from '@/users/users.service.js';
@@ -78,10 +77,6 @@ export class LinksService {
       throw new ForbiddenException('This link belongs to another user');
     }
     return link;
-  }
-
-  update(id: string, updateLinkDto: UpdateLinkDto) {
-    return `This action updates a #${id} link`;
   }
 
   remove(id: string) {
