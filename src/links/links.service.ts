@@ -15,6 +15,8 @@ import { UsersService } from '@/users/users.service.js';
 const GENERATED_SLUG_BYTES = 5;
 const UNIQUE_CONSTRAINT_VIOLATION = 'P2002';
 const FREE_LINK_LIMIT = 5;
+// First path segments of real routes. Keep in sync with the controllers; Express ignores case.
+const RESERVED_SLUGS = ['links', 'auth', 'users', 'admin'];
 
 const generateSlug = () =>
   randomBytes(GENERATED_SLUG_BYTES).toString('base64url');
@@ -35,6 +37,9 @@ export class LinksService {
     const isPro = user.plan === Plan.PRO;
     if (slug && !isPro) {
       throw new ForbiddenException('Custom slugs are a Pro feature');
+    }
+    if (slug && RESERVED_SLUGS.includes(slug.toLowerCase())) {
+      throw new ConflictException('That slug is reserved');
     }
     // shortcut: two simultaneous requests can both pass this count, fine for a small limit
     if (!isPro) {
