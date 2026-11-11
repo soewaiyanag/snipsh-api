@@ -14,6 +14,7 @@ import { UsersService } from '@/users/users.service.js';
 // 5 random bytes give a 7-character slug that already matches our slug rules
 const GENERATED_SLUG_BYTES = 5;
 const UNIQUE_CONSTRAINT_VIOLATION = 'P2002';
+const FREE_LINK_LIMIT = 5;
 
 const generateSlug = () =>
   randomBytes(GENERATED_SLUG_BYTES).toString('base64url');
@@ -31,8 +32,18 @@ export class LinksService {
     if (!user) {
       throw new UnauthorizedException();
     }
-    if (slug && user.plan !== Plan.PRO) {
+    const isPro = user.plan === Plan.PRO;
+    if (slug && !isPro) {
       throw new ForbiddenException('Custom slugs are a Pro feature');
+    }
+    // shortcut: two simultaneous requests can both pass this count, fine for a small limit
+    if (!isPro) {
+      const linkCount = await this.prisma.link.count({ where: { userId } });
+      if (linkCount >= FREE_LINK_LIMIT) {
+        throw new ForbiddenException(
+          `Free plan is limited to ${FREE_LINK_LIMIT} links`,
+        );
+      }
     }
 
     try {
