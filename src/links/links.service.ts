@@ -3,6 +3,7 @@ import {
   ConflictException,
   ForbiddenException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto.js';
@@ -68,8 +69,15 @@ export class LinksService {
     });
   }
 
-  findOne(id: string) {
-    return this.prisma.link.findUnique({ where: { id } });
+  async findOne(id: string, userId: string) {
+    const link = await this.prisma.link.findUnique({ where: { id } });
+    if (!link) {
+      throw new NotFoundException('Link not found');
+    }
+    if (link.userId !== userId) {
+      throw new ForbiddenException('This link belongs to another user');
+    }
+    return link;
   }
 
   update(id: string, updateLinkDto: UpdateLinkDto) {

@@ -31,8 +31,8 @@ export class LinksController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.linksService.findOne(id);
+  findOne(@Param('id') id: string, @CurrentUser() user: JwtPayload) {
+    return this.linksService.findOne(id, user.sub);
   }
 
   @Patch(':id')
