@@ -7,5 +7,6 @@ import { LinksController } from './links.controller.js';
   imports: [UsersModule],
   controllers: [LinksController],
   providers: [LinksService],
+  exports: [LinksService],
 })
 export class LinksModule {}

@@ -68,6 +68,10 @@ export class LinksService {
     });
   }
 
+  findBySlug(slug: string) {
+    return this.prisma.link.findUnique({ where: { slug } });
+  }
+
   async findOne(id: string, userId: string) {
     const link = await this.prisma.link.findUnique({ where: { id } });
     if (!link) {

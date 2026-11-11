@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { UsersModule } from './users/users.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { LinksModule } from './links/links.module.js';
+import { RedirectModule } from './redirect/redirect.module.js';
 
 @Module({
   imports: [
@@ -18,6 +19,8 @@ import { LinksModule } from './links/links.module.js';
     UsersModule,
     AuthModule,
     LinksModule,
+    // must stay last: its /:slug route would otherwise shadow /links
+    RedirectModule,
   ],
   controllers: [AppController],
   providers: [AppService],
