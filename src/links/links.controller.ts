@@ -39,6 +39,14 @@ export class LinksController {
     return this.linksService.findOne(id, user.sub);
   }
 
+  @Get(':id/stats')
+  getStats(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() user: JwtPayload,
+  ) {
+    return this.linksService.getStats(id, user.sub);
+  }
+
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(

@@ -6,6 +6,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ClicksService } from '@/clicks/clicks.service.js';
 import { CreateLinkDto } from './dto/create-link.dto.js';
 import { Plan, Prisma } from '@/generated/prisma/client.js';
 import { PrismaService } from '@/prisma/prisma.service.js';
@@ -26,6 +27,7 @@ export class LinksService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly users: UsersService,
+    private readonly clicks: ClicksService,
   ) {}
 
   // shortcut: a generated slug that collides returns 409, add a retry loop if it ever happens
@@ -86,6 +88,12 @@ export class LinksService {
       throw new ForbiddenException('This link belongs to another user');
     }
     return link;
+  }
+
+  async getStats(id: string, userId: string) {
+    await this.findOne(id, userId);
+    const totalClicks = await this.clicks.countForLink(id);
+    return { totalClicks };
   }
 
   async remove(id: string, userId: string) {

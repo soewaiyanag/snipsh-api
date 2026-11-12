@@ -30,4 +30,8 @@ export class ClicksService {
       this.logger.error(`Could not record click for link ${linkId}`, error);
     }
   }
+
+  countForLink(linkId: string) {
+    return this.prisma.click.count({ where: { linkId } });
+  }
 }
