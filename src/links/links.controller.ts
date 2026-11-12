@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
 import { CurrentUser } from '@/auth/decorators/current-user.decorator.js';
@@ -31,13 +32,19 @@ export class LinksController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @CurrentUser() user: JwtPayload) {
+  findOne(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() user: JwtPayload,
+  ) {
     return this.linksService.findOne(id, user.sub);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: string, @CurrentUser() user: JwtPayload) {
+  remove(
+    @Param('id', ParseUUIDPipe) id: string,
+    @CurrentUser() user: JwtPayload,
+  ) {
     return this.linksService.remove(id, user.sub);
   }
 }
