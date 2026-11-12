@@ -1,0 +1,11 @@
+meta {
+  name: Delete link
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/links/{{linkId}}
+  body: none
+  auth: inherit
+}
