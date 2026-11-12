@@ -34,4 +34,15 @@ export class ClicksService {
   countForLink(linkId: string) {
     return this.prisma.click.count({ where: { linkId } });
   }
+
+  // Prisma's groupBy cannot group by the day part of a timestamp, so this one is raw SQL
+  countPerDay(linkId: string) {
+    return this.prisma.$queryRaw<{ day: string; clicks: number }[]>`
+      SELECT to_char("createdAt", 'YYYY-MM-DD') AS day, count(*)::int AS clicks
+      FROM "Click"
+      WHERE "linkId" = ${linkId}::uuid
+      GROUP BY day
+      ORDER BY day
+    `;
+  }
 }
