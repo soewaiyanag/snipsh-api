@@ -77,7 +77,7 @@ The API runs on `http://localhost:3000`.
 - [x] Redirect: `GET /:slug` with 302
 - [x] Native `uuid` columns for ids
 - [ ] Expired and inactive links rejected
-- [ ] Click tracking: timestamp, referrer, user agent
+- [x] Click tracking: timestamp, referrer, user agent
 - [ ] Analytics: total clicks, clicks per day, top referrers
 - [ ] Pagination on link lists
 - [ ] Consistent error responses
