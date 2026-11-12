@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Headers,
   HttpStatus,
   NotFoundException,
   Param,
@@ -20,12 +21,16 @@ export class RedirectController {
   @Public()
   @Get(':slug')
   @Redirect()
-  async redirect(@Param('slug') slug: string) {
+  async redirect(
+    @Param('slug') slug: string,
+    @Headers('referer') referrer?: string,
+    @Headers('user-agent') userAgent?: string,
+  ) {
     const link = await this.links.findBySlug(slug);
     if (!link) {
       throw new NotFoundException('Link not found');
     }
-    await this.clicks.record(link.id);
+    await this.clicks.record(link.id, { referrer, userAgent });
     // 302, not 301: browsers cache a 301 forever, which would hide clicks from us
     return { url: link.url, statusCode: HttpStatus.FOUND };
   }
