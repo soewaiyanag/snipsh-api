@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { LinksModule } from './links/links.module.js';
 import { RedirectModule } from './redirect/redirect.module.js';
+import { ClicksModule } from './clicks/clicks.module.js';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { RedirectModule } from './redirect/redirect.module.js';
     LinksModule,
     // must stay last: its /:slug route would otherwise shadow /links
     RedirectModule,
+    ClicksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
