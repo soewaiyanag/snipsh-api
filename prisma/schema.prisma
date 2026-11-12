@@ -28,4 +28,16 @@ model Link {
   userId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+  clicks    Click[]
+}
+
+model Click {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  linkId    String   @db.Uuid
+  link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  referrer  String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([linkId, createdAt])
 }
