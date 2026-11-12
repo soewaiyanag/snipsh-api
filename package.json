@@ -9,6 +9,10 @@
   "scripts": {
     "build": "nest build",
     "deploy": "nest deploy",
+    "db:migrate": "prisma migrate dev",
+    "db:status": "prisma migrate status",
+    "db:migrate:prod": "node --env-file=.env.production.local node_modules/.bin/prisma migrate deploy",
+    "db:status:prod": "node --env-file=.env.production.local node_modules/.bin/prisma migrate status",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
