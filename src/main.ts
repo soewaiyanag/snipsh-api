@@ -11,6 +11,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  // Comma-separated list of UI origins allowed to call the API from a browser
+  app.enableCors({ origin: process.env.CORS_ORIGIN?.split(',') ?? false });
   await app.listen(process.env.PORT ?? 3000);
 }
 await bootstrap();
