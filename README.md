@@ -72,9 +72,11 @@ The API runs on `http://localhost:3000`.
 - [x] Config with environment validation
 - [x] Prisma service and global request validation
 - [x] Local PostgreSQL with Docker Compose
-- [ ] Auth: register, login, JWT
-- [ ] Links: create (random or custom slug), list, update, delete, owner-only access
-- [ ] Redirect: `GET /:slug` with 302, expired and inactive links rejected
+- [x] Auth: register, login, JWT
+- [x] Links: create (random or custom slug), list, delete, owner-only access (no update, to prevent bait-and-switch links)
+- [x] Redirect: `GET /:slug` with 302
+- [x] Native `uuid` columns for ids
+- [ ] Expired and inactive links rejected
 - [ ] Click tracking: timestamp, referrer, user agent
 - [ ] Analytics: total clicks, clicks per day, top referrers
 - [ ] Pagination on link lists
