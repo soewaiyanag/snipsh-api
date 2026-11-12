@@ -1,6 +1,6 @@
 # SnipShort API
 
-Backend for **SnipShort**, a URL shortener. The API runs at [snipsh-api.onrender.com](https://snipsh-api.onrender.com), with docs at `/docs`.
+Backend for **SnipShort**, a URL shortener. The API runs at [snipsh-api.onrender.com](https://snipsh-api.onrender.com), with docs at `/docs`. The web app is at [snipsh-swya.vercel.app](https://snipsh-swya.vercel.app).
 Sign up, turn long URLs into short links like `snipsh-api.onrender.com/aB3x9`, and see how often each one gets clicked.
 
 Built with NestJS, Prisma and PostgreSQL.
