@@ -7,11 +7,15 @@ import {
   Redirect,
 } from '@nestjs/common';
 import { Public } from '@/auth/decorators/public.decorator.js';
+import { ClicksService } from '@/clicks/clicks.service.js';
 import { LinksService } from '@/links/links.service.js';
 
 @Controller()
 export class RedirectController {
-  constructor(private readonly links: LinksService) {}
+  constructor(
+    private readonly links: LinksService,
+    private readonly clicks: ClicksService,
+  ) {}
 
   @Public()
   @Get(':slug')
@@ -21,6 +25,7 @@ export class RedirectController {
     if (!link) {
       throw new NotFoundException('Link not found');
     }
+    await this.clicks.record(link.id);
     // 302, not 301: browsers cache a 301 forever, which would hide clicks from us
     return { url: link.url, statusCode: HttpStatus.FOUND };
   }
