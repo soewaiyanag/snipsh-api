@@ -14,6 +14,8 @@ async function bootstrap() {
   );
   const config = new DocumentBuilder()
     .setTitle('snipsh API')
+    .addServer('https://snipsh-api.onrender.com', 'Production')
+    .addServer('http://localhost:3000', 'Local')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
