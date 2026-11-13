@@ -80,4 +80,4 @@ The API runs on `http://localhost:3000`.
 - [x] Click tracking: timestamp, referrer, user agent
 - [x] Analytics: total clicks, clicks per day, top referrers
 - [x] Pagination on link lists
-- [ ] Consistent error responses
+- [x] Consistent error responses
