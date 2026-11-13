@@ -92,11 +92,12 @@ export class LinksService {
 
   async getStats(id: string, userId: string) {
     await this.findOne(id, userId);
-    const [totalClicks, clicksPerDay] = await Promise.all([
+    const [totalClicks, clicksPerDay, topReferrers] = await Promise.all([
       this.clicks.countForLink(id),
       this.clicks.countPerDay(id),
+      this.clicks.topReferrers(id),
     ]);
-    return { totalClicks, clicksPerDay };
+    return { totalClicks, clicksPerDay, topReferrers };
   }
 
   async remove(id: string, userId: string) {

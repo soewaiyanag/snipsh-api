@@ -8,6 +8,7 @@ import {
 
 // Browsers choose these headers, so cap them to keep one visitor from filling the table
 const MAX_HEADER_LENGTH = 512;
+const TOP_REFERRERS_LIMIT = 5;
 
 @Injectable()
 export class ClicksService {
@@ -44,5 +45,20 @@ export class ClicksService {
       GROUP BY day
       ORDER BY day
     `;
+  }
+
+  async topReferrers(linkId: string) {
+    const groups = await this.prisma.click.groupBy({
+      by: ['referrer'],
+      where: { linkId },
+      _count: { _all: true },
+      orderBy: { _count: { referrer: 'desc' } },
+      take: TOP_REFERRERS_LIMIT,
+    });
+    // a null referrer means a direct visit: typed URL, bookmark or an app that sends no header
+    return groups.map(({ referrer, _count }) => ({
+      referrer,
+      clicks: _count._all,
+    }));
   }
 }

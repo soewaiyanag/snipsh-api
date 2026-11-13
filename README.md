@@ -78,6 +78,6 @@ The API runs on `http://localhost:3000`.
 - [x] Native `uuid` columns for ids
 - [ ] Expired and inactive links rejected
 - [x] Click tracking: timestamp, referrer, user agent
-- [ ] Analytics: total clicks, clicks per day, top referrers
+- [x] Analytics: total clicks, clicks per day, top referrers
 - [ ] Pagination on link lists
 - [ ] Consistent error responses
