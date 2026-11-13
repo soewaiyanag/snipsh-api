@@ -10,11 +10,11 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { PaginationQueryDto } from '@/common/pagination/pagination-query.dto.js';
 import { CurrentUser } from '@/auth/decorators/current-user.decorator.js';
 import type { JwtPayload } from '@/auth/jwt-auth.guard.js';
 import { LinksService } from './links.service.js';
 import { CreateLinkDto } from './dto/create-link.dto.js';
-import { PaginationQueryDto } from './dto/pagination-query.dto.js';
 
 @Controller('links')
 export class LinksController {

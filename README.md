@@ -79,5 +79,5 @@ The API runs on `http://localhost:3000`.
 - [ ] Expired and inactive links rejected
 - [x] Click tracking: timestamp, referrer, user agent
 - [x] Analytics: total clicks, clicks per day, top referrers
-- [ ] Pagination on link lists
+- [x] Pagination on link lists
 - [ ] Consistent error responses

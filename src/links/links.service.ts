@@ -7,8 +7,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ClicksService } from '@/clicks/clicks.service.js';
+import { paginate } from '@/common/pagination/paginate.js';
+import { PaginationQueryDto } from '@/common/pagination/pagination-query.dto.js';
 import { CreateLinkDto } from './dto/create-link.dto.js';
-import { PaginationQueryDto } from './dto/pagination-query.dto.js';
 import { Plan, Prisma } from '@/generated/prisma/client.js';
 import { PrismaService } from '@/prisma/prisma.service.js';
 import { UsersService } from '@/users/users.service.js';
@@ -69,13 +70,18 @@ export class LinksService {
     }
   }
 
-  findAll(userId: string, { page, limit }: PaginationQueryDto) {
-    return this.prisma.link.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'desc' },
-      skip: (page - 1) * limit,
-      take: limit,
-    });
+  findAll(userId: string, pagination: PaginationQueryDto) {
+    const where = { userId };
+    return paginate(
+      pagination,
+      (range) =>
+        this.prisma.link.findMany({
+          where,
+          orderBy: { createdAt: 'desc' },
+          ...range,
+        }),
+      () => this.prisma.link.count({ where }),
+    );
   }
 
   findBySlug(slug: string) {
