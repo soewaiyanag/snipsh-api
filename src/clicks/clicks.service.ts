@@ -38,12 +38,12 @@ export class ClicksService {
 
   // Prisma's groupBy cannot group by the day part of a timestamp, so this one is raw SQL
   countPerDay(linkId: string) {
-    return this.prisma.$queryRaw<{ day: string; clicks: number }[]>`
-      SELECT to_char("createdAt", 'YYYY-MM-DD') AS day, count(*)::int AS clicks
+    return this.prisma.$queryRaw<{ date: string; count: number }[]>`
+      SELECT to_char("createdAt", 'YYYY-MM-DD') AS date, count(*)::int AS count
       FROM "Click"
       WHERE "linkId" = ${linkId}::uuid
-      GROUP BY day
-      ORDER BY day
+      GROUP BY 1
+      ORDER BY 1
     `;
   }
 
@@ -55,10 +55,10 @@ export class ClicksService {
       orderBy: { _count: { referrer: 'desc' } },
       take: TOP_REFERRERS_LIMIT,
     });
-    // a null referrer means a direct visit: typed URL, bookmark or an app that sends no header
+    // the frontend expects "" for a direct visit: typed URL, bookmark or an app that sends no header
     return groups.map(({ referrer, _count }) => ({
-      referrer,
-      clicks: _count._all,
+      referrer: referrer ?? '',
+      count: _count._all,
     }));
   }
 }
