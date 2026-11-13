@@ -9,7 +9,9 @@ import {
   ParseUUIDPipe,
   Post,
   Query,
+  Res,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import { PaginationQueryDto } from '@/common/pagination/pagination-query.dto.js';
 import { CurrentUser } from '@/auth/decorators/current-user.decorator.js';
 import type { JwtPayload } from '@/auth/jwt-auth.guard.js';
@@ -21,11 +23,14 @@ export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
   @Post()
-  create(
+  async create(
     @CurrentUser() user: JwtPayload,
     @Body() createLinkDto: CreateLinkDto,
+    @Res({ passthrough: true }) res: Response,
   ) {
-    return this.linksService.create(user.sub, createLinkDto);
+    const link = await this.linksService.create(user.sub, createLinkDto);
+    res.location(`/links/${link.id}`);
+    return link;
   }
 
   @Get()
